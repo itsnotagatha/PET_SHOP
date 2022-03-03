@@ -11,13 +11,16 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
+    public Item findById(long id) {
+        return itemRepository.findById(id);
+    }
+
+    public List<Item> findAllByName(String name) {
+        return itemRepository.findAllByName(name);
+    }
 
     public List<Item> findAllByOrderByNameAsc() {
         return itemRepository.findAllByOrderByNameAsc();
-    }
-
-    public List<Item> findAllByCategoryId(long categoryId) {
-        return itemRepository.findAllByCategoryId(categoryId);
     }
 
     public void saveItem(Item item) {
@@ -29,8 +32,12 @@ public class ItemService {
     }
 
     public void editItem(long id, Item newItem) {
-        this.deleteItem(id);
-        itemRepository.save(newItem);
+        System.out.println(newItem.toString());
+        Item found = itemRepository.getById(id);
+        found.setName(newItem.getName());
+        found.setColor(newItem.getColor());
+        found.setPrice(newItem.getPrice());
+        saveItem(newItem);
     }
 
     public long countItems() {

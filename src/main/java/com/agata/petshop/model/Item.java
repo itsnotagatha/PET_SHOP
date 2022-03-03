@@ -2,13 +2,16 @@ package com.agata.petshop.model;
 
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "item")
 public class Item {
@@ -28,13 +31,21 @@ public class Item {
 
     @Column(name = "price")
     @NotNull
-    private BigDecimal price;
+    private double price;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = true)
     private Category category;
 
+    public Item(String name, String color, double price, Category category) {
+        this.name = name;
+        this.color = color;
+        this.price = price;
+        this.category = category;
+    }
 
-
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
