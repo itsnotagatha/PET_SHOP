@@ -2,6 +2,7 @@ package com.agata.petshop.controller;
 
 import com.agata.petshop.service.CategoryService;
 import com.agata.petshop.service.ItemService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ public class SearchController {
     public String searchPage(Model model){
         model.addAttribute("keyword", keyword);
         model.addAttribute("items", itemService.findAllByName(keyword));
+        //model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
         return "search";
     }
 

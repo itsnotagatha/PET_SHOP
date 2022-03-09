@@ -51,6 +51,7 @@ public class CartService {
     }
 
     public void cartPurchase() {
+
         cart.clear();
     }
 }

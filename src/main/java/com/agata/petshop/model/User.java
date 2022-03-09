@@ -1,6 +1,5 @@
 package com.agata.petshop.model;
 
-
 import lombok.Data;
 
 import javax.persistence.*;
@@ -23,6 +22,12 @@ public class User {
     @NotNull
     private String username;
 
+    @Column(name = "role")
+    @NotEmpty
+    @NotNull
+    private String role;
+
+    @Column(name = "password")
     @NotEmpty
     @NotNull
     private String password;
@@ -40,5 +45,16 @@ public class User {
     @Column(name = "phone_number")
     private int phoneNumber;
 
+    public User(String username, String role, String password, String passwordConfirm, String email, int phoneNumber) {
+        this.username = username;
+        this.role = role;
+        this.password = password;
+        this.passwordConfirm = passwordConfirm;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
 
+    public User() {
+
+    }
 }
