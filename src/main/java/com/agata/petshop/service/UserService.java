@@ -27,6 +27,12 @@ public class UserService {
     
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRole("USER");
+        userRepository.save(user);
+    }
+
+    public void saveAdmin(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
     

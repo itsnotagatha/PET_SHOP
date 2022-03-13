@@ -4,6 +4,7 @@ package com.agata.petshop.controller;
 import com.agata.petshop.model.Item;
 import com.agata.petshop.service.CategoryService;
 import com.agata.petshop.service.ItemService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ public class ItemController {
 
 
     @GetMapping("/item/new")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String newItem(Model model) {
         model.addAttribute("itemForm", new Item());
         model.addAttribute("method", "new");
@@ -27,12 +29,14 @@ public class ItemController {
     }
 
     @PostMapping("/item/new")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String newItem(@ModelAttribute("itemForm") Item itemForm, Model model) {
         itemService.saveItem(itemForm);
         return "redirect:/home";
     }
 
     @GetMapping("/item/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String editItem(@PathVariable("id") long itemId, Model model){
         Item item = itemService.findById(itemId);
         if (item != null){
@@ -46,6 +50,7 @@ public class ItemController {
     }
 
     @PostMapping("/item/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String editItem(@PathVariable("id") long itemId, @ModelAttribute("itemForm") Item itemForm, Model model){
         System.out.println("test");
         itemService.editItem(itemId, itemForm);
@@ -53,7 +58,9 @@ public class ItemController {
     }
 
     @GetMapping("/item/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteItem(@PathVariable("id") long itemId){
+        System.out.println("delete item " + itemId);
         Item item = itemService.findById(itemId);
         if (item != null){
             itemService.deleteItem(itemId);

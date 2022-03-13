@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 
@@ -23,4 +25,9 @@ public class Purchase {
 
     @OneToMany
     List<PurchaseDetails> purchaseDetails;
+
+    @Column(name = "price")
+    @NotNull
+    @NotEmpty
+    private double price;
 }
